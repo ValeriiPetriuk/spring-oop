@@ -7,7 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.*;
 
 @Service
 public class InspectionService {
@@ -52,5 +54,26 @@ public class InspectionService {
     public void deleteInspection(int id) {
         Inspection inspection = inspectionRepository.findById(id).orElseThrow(() -> new RuntimeException("inspection not found"));
         inspectionRepository.delete(inspection);
+    }
+
+
+    public Map<String, List<Inspection>> getWeekdayInspections() {
+        List<Inspection> inspections = inspectionRepository.groupByDayOfWeek();
+        Map<String, List<Inspection>> groupedInspections = new LinkedHashMap<>();
+
+        for (DayOfWeek day : DayOfWeek.values()) {
+            if (day.getValue() >= DayOfWeek.MONDAY.getValue() && day.getValue() <= DayOfWeek.FRIDAY.getValue()) {
+                String dayName = day.getDisplayName(TextStyle.FULL, new Locale("uk", "UA"));
+                groupedInspections.put(dayName, new ArrayList<>());
+            }
+        }
+
+        for (Inspection inspection : inspections) {
+            String dayName = inspection.getDateInspection().getDayOfWeek()
+                    .getDisplayName(TextStyle.FULL, new Locale("uk", "UA"));
+            groupedInspections.get(dayName).add(inspection);
+        }
+
+        return groupedInspections;
     }
 }
