@@ -1,25 +1,33 @@
 package com.oop.practice.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class InspectionDTO {
 
-    private Long id;
-
+    @NotNull(message = "name attraction cannot be null")
     private String nameAttraction;
-
+    @NotNull(message = "number inspection cannot be null")
+    @Min(value = 1, message = "number inspection must be at least 1")
+    @Max(value = 5, message = "number inspection must be no more than 5")
     private int numberInspetion;
 
+    @NotNull(message = "date inspection cannot be null")
     private LocalDate dateInspection;
 
+    @NotNull(message = "type inspection cannot be null")
     private String typeInspection;
 
+    @NotNull(message = "location inspection cannot be null")
     private String locationAttraction;
 
     public InspectionDTO() {}
 
-    public InspectionDTO(Long id, String nameAttraction, int numberInspetion, LocalDate dateInspection, String typeInspection, String locationAttraction) {
-        this.id = id;
+    public InspectionDTO(String nameAttraction, int numberInspetion, LocalDate dateInspection, String typeInspection, String locationAttraction) {
+//        this.id = id;
         this.nameAttraction = nameAttraction;
         this.numberInspetion = numberInspetion;
         this.dateInspection = dateInspection;
@@ -27,13 +35,7 @@ public class InspectionDTO {
         this.locationAttraction = locationAttraction;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNameAttraction() {
         return nameAttraction;
