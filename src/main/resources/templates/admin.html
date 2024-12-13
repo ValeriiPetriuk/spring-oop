@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Panel</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        button { padding: 8px 12px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .delete-btn { background-color: #dc3545; }
+        .delete-btn:hover { background-color: #c82333; }
+    </style>
+</head>
+<body>
+<h1>Admin Panel</h1>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+
+<!--    <tr th:each="inspection : ${inspections}">-->
+<!--        <td th:text="${inspection.id}"></td>-->
+<!--        <td th:text="${inspection.nameAttraction}"></td>-->
+<!--        <td>-->
+<!--            <button th:onclick="'location.href=\'/admin/edit/' + ${inspection.id} + '\''">Edit</button>-->
+<!--            <button class="delete-btn" th:onclick="'location.href=\'/admin/delete/' + ${inspection.id} + '\''">Delete</button>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<table>
+    <thead>
+    <tr>
+        <th>Day of the Week</th>
+        <th>Inspections</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${inspections}">
+        <td th:text="${entry.key}"></td>
+        <td>
+            <ul>
+
+                <li th:each="inspection : ${entry.value}">
+                    <strong th:text="${inspection.nameAttraction}"></strong>
+                    (Location: <span th:text="${inspection.locationAttraction}"></span>,
+                    Date: <span th:text="${inspection.dateInspection}"></span>)
+                </li>
+            </ul>
+        </td>
+        <td>
+           <div th:each="inspection : ${entry.value}">
+               <button th:onclick="'location.href=\'/admin/edit/' + ${inspection.id} + '\''">Edit</button>
+               <button class="delete-btn" th:onclick="'location.href=\'/admin/delete/' + ${inspection.id} + '\''">Delete</button>
+           </div>
+
+
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<button th:onclick="'location.href=\'/admin/add\''">Add New Inspection</button>
+
+</body>
+</html>

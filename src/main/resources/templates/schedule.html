@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Weekly Schedule</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        ul { margin: 0; padding-left: 20px; }
+    </style>
+</head>
+<body>
+<h1>Weekly Schedule</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Day of the Week</th>
+        <th>Inspections</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="entry : ${schedule}">
+        <td th:text="${entry.key}"></td>
+        <td>
+            <ul>
+
+                <li th:each="inspection : ${entry.value}">
+                    <strong th:text="${inspection.nameAttraction}"></strong>
+                    (Location: <span th:text="${inspection.locationAttraction}"></span>,
+                    Date: <span th:text="${inspection.dateInspection}"></span>)
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

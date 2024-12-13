@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class InspectionDTO {
-
+    private int id;
     @NotNull(message = "name attraction cannot be null")
     private String nameAttraction;
     @NotNull(message = "number inspection cannot be null")
@@ -26,8 +26,8 @@ public class InspectionDTO {
 
     public InspectionDTO() {}
 
-    public InspectionDTO(String nameAttraction, int numberInspetion, LocalDate dateInspection, String typeInspection, String locationAttraction) {
-//        this.id = id;
+    public InspectionDTO(int id, String nameAttraction, int numberInspetion, LocalDate dateInspection, String typeInspection, String locationAttraction) {
+        this.id = id;
         this.nameAttraction = nameAttraction;
         this.numberInspetion = numberInspetion;
         this.dateInspection = dateInspection;
@@ -35,6 +35,9 @@ public class InspectionDTO {
         this.locationAttraction = locationAttraction;
     }
 
+    public int getId() {
+        return this.id;
+    }
 
 
     public String getNameAttraction() {
