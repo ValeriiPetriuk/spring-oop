@@ -1,6 +1,7 @@
 package com.oop.practice.dto;
 
 public class LoginDTO {
+
     private String username;
     private String password;
 
